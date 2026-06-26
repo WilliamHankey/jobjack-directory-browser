@@ -1,0 +1,228 @@
+.app-shell {
+  min-height: 100vh;
+  background: var(--app-bg);
+}
+
+.topbar {
+  height: 76px;
+  padding: 0 28px;
+  background: linear-gradient(90deg, var(--app-blue), var(--app-blue-dark));
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.topbar-left,
+.topbar-actions,
+.brand {
+  display: flex;
+  align-items: center;
+}
+
+.topbar-left {
+  gap: 20px;
+}
+
+.brand {
+  gap: 12px;
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.brand i {
+  font-size: 1.6rem;
+}
+
+.topbar-btn {
+  color: white;
+}
+
+.layout {
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 24px;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-title.blue {
+  color: var(--app-blue);
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 4px;
+}
+
+.nav-item i {
+  font-size: 1.35rem;
+}
+
+.nav-item div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-item span {
+  color: var(--app-muted);
+}
+
+.nav-item.active {
+  color: var(--app-blue);
+}
+
+.tip-card {
+  background: #eef6ff;
+}
+
+.tip-card p {
+  line-height: 1.6;
+  margin: 0;
+}
+
+.content-card {
+  background: var(--app-card);
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius);
+  box-shadow: var(--app-shadow);
+  padding: 22px;
+}
+
+.table-card {
+  border: 1px solid var(--app-border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--app-card);
+}
+
+.toolbar {
+  padding: 28px 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid var(--app-border);
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.footer-actions {
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--app-muted);
+  border-top: 1px solid var(--app-border);
+}
+
+.drawer-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+}
+
+.drawer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+:host ::ng-deep .mobile-menu-drawer {
+  width: 320px;
+  max-width: 90vw;
+}
+
+.mobile-drawer {
+  display: none;
+}
+
+.topbar-btn.menu-button {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+
+  .mobile-drawer {
+    display: block;
+  }
+
+   .topbar-btn.menu-button {
+    display: inline-flex;
+  }
+
+  .topbar {
+    height: 88px;
+    padding: 0 18px;
+  }
+
+  .brand {
+    font-size: 1.15rem;
+  }
+
+  .topbar-actions {
+    display: none;
+  }
+
+  .layout {
+    display: block;
+    padding: 14px;
+  }
+
+  .sidebar {
+    margin-bottom: 16px;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  .content-card {
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  .table-card {
+    border-radius: 14px;
+    box-shadow: var(--app-shadow);
+  }
+
+  .toolbar {
+    padding: 14px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+
+  .footer-actions {
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px 14px;
+    text-align: center;
+  }
+
+  .footer-actions button {
+    width: 100%;
+  }
+}

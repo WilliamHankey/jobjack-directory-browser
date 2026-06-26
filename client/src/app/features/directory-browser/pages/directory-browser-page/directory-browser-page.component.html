@@ -1,0 +1,197 @@
+<div class="app-shell">
+  <header class="topbar">
+   
+    <div class="topbar-left">
+      <button
+        pButton
+        text
+        icon="pi pi-bars"
+        class="topbar-btn menu-button"
+        (click)="isMobileMenuOpen.set(true)">
+      </button>
+
+      <div class="brand">
+        <i class="pi pi-folder"></i>
+        <span>Directory Browser</span>
+      </div>
+    </div>
+
+    <div class="topbar-actions">
+      <button
+        pButton
+        text
+        [icon]="isDarkMode() ? 'pi pi-moon' : 'pi pi-sun'"
+        class="topbar-btn"
+        (click)="toggleDarkMode()"
+      ></button>
+    </div>
+  </header>
+
+  
+    <p-drawer
+      [(visible)]="isMobileMenuOpen"
+      position="left"
+      styleClass="mobile-menu-drawer"
+    >
+   
+   
+  <ng-template pTemplate="header">
+    <div class="drawer-title">
+      <i class="pi pi-folder"></i>
+      <span>Directory Info</span>
+    </div>
+  </ng-template>
+
+  <div class="drawer-content">
+    <app-directory-stats
+      [currentPath]="store.currentPath()"
+      [totalItems]="store.items().length"
+      [fileCount]="store.fileCount()"
+      [directoryCount]="store.directoryCount()"
+      [showAllStats]="true"
+    />
+
+    <p-card>
+      <ng-template pTemplate="title">Navigation</ng-template>
+
+      <div class="nav-item active">
+        <i class="pi pi-home"></i>
+        <div>
+          <strong>Root</strong>
+          <span>/app/shared</span>
+        </div>
+      </div>
+    </p-card>
+
+    <p-card class="tip-card">
+      <ng-template pTemplate="title">
+        <div class="section-title blue">
+          <i class="pi pi-lightbulb"></i>
+          <span>Tip</span>
+        </div>
+      </ng-template>
+
+      <p>
+        Click on a directory to navigate into it. Use Load More to fetch the
+        next page of server results.
+      </p>
+    </p-card>
+  </div>
+</p-drawer>
+ 
+
+
+  <main class="layout">
+    <aside class="sidebar">
+      <app-directory-stats
+        [currentPath]="store.currentPath()"
+        [totalItems]="store.items().length"
+        [fileCount]="store.fileCount()"
+        [directoryCount]="store.directoryCount()"
+        [showAllStats]="true"
+      />
+
+      <p-card class="desktop-only">
+        <ng-template pTemplate="title">Navigation</ng-template>
+
+        <div class="nav-item active">
+          <i class="pi pi-home"></i>
+          <div>
+            <strong>Root</strong>
+            <span>/app/shared</span>
+          </div>
+        </div>
+      </p-card>
+
+      <p-card class="tip-card desktop-only">
+        <ng-template pTemplate="title">
+          <div class="section-title blue">
+            <i class="pi pi-lightbulb"></i>
+            <span>Tip</span>
+          </div>
+        </ng-template>
+
+        <p>
+          Click on a directory to navigate into it. Use Load More to fetch the
+          next page of server results.
+        </p>
+      </p-card>
+    </aside>
+
+    <section class="content-card">
+      <app-directory-breadcrumb
+        [breadcrumbParts]="store.breadcrumbParts()"
+        [canGoBack]="store.pathHistory().length > 0"
+        (back)="store.goBack()"
+        (home)="store.loadDirectory(null, false)"
+        (navigate)="store.loadDirectory($event, false)"
+      />
+
+      <div class="table-card">
+        <div class="toolbar">
+          <p-iconfield>
+            <p-inputicon styleClass="pi pi-search" />
+            <input type="text" pInputText placeholder="Search in current directory..." />
+          </p-iconfield>
+
+          <div class="toolbar-actions">
+            <button
+              pButton
+              type="button"
+              icon="pi pi-refresh"
+              severity="secondary"
+              outlined
+              (click)="store.loadDirectory(store.currentPath(), false)"
+            ></button>
+          </div>
+        </div>
+
+        @if (store.isInitialLoading()) {
+          <app-loading-state />
+        }
+
+        @if (store.hasError()) {
+          <app-error-state [message]="store.errorMessage()" />
+        }
+
+        @if (store.isEmpty()) {
+          <app-empty-state />
+        }
+
+        @if (store.items().length > 0) {
+          <app-directory-table
+            [items]="store.items()"
+            (directorySelected)="store.openItem($event)"
+          />
+
+          <app-directory-mobile-list
+            [items]="store.items()"
+            (directorySelected)="store.openItem($event)"
+          />
+
+          @if (store.hasNextPage()) {
+            <div class="footer-actions">
+              <span>
+                @if (store.isLoadingMore()) {
+                  Loading more items...
+                } @else {
+                  More items are available from the server.
+                }
+              </span>
+
+              <button
+                pButton
+                type="button"
+                label="Load More"
+                icon="pi pi-plus"
+                [loading]="store.isLoadingMore()"
+                [disabled]="store.isLoadingMore()"
+                (click)="store.loadMore()"
+              ></button>
+            </div>
+          }
+        }
+      </div>
+    </section>
+  </main>
+</div>
