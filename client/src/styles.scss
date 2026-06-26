@@ -1,0 +1,60 @@
+@import "primeicons/primeicons.css";
+
+:root {
+  --p-primary-color: var(--p-cyan-500)!important;
+  --p-primary-color: var(--p-cyan-500);
+  --app-bg: #f5f8fc;
+  --app-blue: var(--p-cyan-500);
+  --app-blue-dark: var(--p-cyan-700);
+  --app-border: #e5eaf2;
+  --app-text: #121826;
+  --app-muted: #5f6b7a;
+  --app-card: #ffffff;
+  --app-radius: 16px;
+  --app-shadow: 0 8px 28px rgba(15, 23, 42, 0.08);
+}
+
+.app-dark {
+  --app-bg: #0f172a;
+  --app-blue: var(--p-cyan-400);
+  --app-blue-dark: var(--p-cyan-700);
+  --app-border: #263244;
+  --app-text: #e5e7eb;
+  --app-muted: #94a3b8;
+  --app-card: #111827;
+  --app-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--app-bg);
+  color: var(--app-text);
+  font-family: Inter, Arial, sans-serif;
+}
+
+.p-card {
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius);
+  box-shadow: var(--app-shadow);
+}
+
+.p-card .p-card-body {
+  padding: 1.25rem;
+}
+
+.p-card .p-card-title {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.p-button {
+  border-radius: 10px;
+}
+
+.p-inputtext {
+  border-radius: 10px;
+}
